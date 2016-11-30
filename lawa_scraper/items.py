@@ -12,3 +12,4 @@ class PageItem(scrapy.Item):
     html = scrapy.Field()
     timestamp = scrapy.Field()
     url = scrapy.Field()
+    original_url = scrapy.Field()

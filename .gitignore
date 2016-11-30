@@ -1,4 +1,5 @@
 *.pyc
 environment.py
+local_settings.py
 *.log
 *.egg-info
