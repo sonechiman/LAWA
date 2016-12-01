@@ -15,6 +15,11 @@ COOKIES_ENABLED = False
 
 # ROBOTSTXT_OBEY = True
 
+ITEM_PIPELINES = {
+    'lawa_scraper.pipelines.MysqlWebpagePipeline': 100,
+}
+
+
 DOWNLOAD_DELAY = 3
 
 MYSQL_CONNECTION = os.environ.get(

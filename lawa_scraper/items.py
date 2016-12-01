@@ -13,3 +13,5 @@ class PageItem(scrapy.Item):
     timestamp = scrapy.Field()
     url = scrapy.Field()
     original_url = scrapy.Field()
+    company = scrapy.Field()
+    path_label = scrapy.Field()
