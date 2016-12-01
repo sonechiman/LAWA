@@ -12,7 +12,7 @@ class Webpage(Base):
     url = Column(String, nullable=False)
     original_url = Column(String, nullable=False, index=True)
     company = Column(String, nullable=False, index=True)
-    path_label = Column(String, nullable=False, index=True)
+    path_label = Column(String, index=True)
     timestamp = Column(DateTime, nullable=False, index=True)
 
     def __repr__(self):

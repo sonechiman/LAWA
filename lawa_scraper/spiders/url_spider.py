@@ -6,6 +6,7 @@ import re
 from datetime import datetime as dt
 from ..items import PageItem
 from ..utils import *
+from ..config import *
 
 
 class UrlSpider(scrapy.Spider):
@@ -15,7 +16,7 @@ class UrlSpider(scrapy.Spider):
     def __init__(self, url=None, *args, **kwargs):
         super(UrlSpider, self).__init__(*args, **kwargs)
         self.target_url = "http://salesforce.com/"
-        self.company = "salesforce"
+        self.company = COMPANY
         self.start_urls = self.get_start_urls(self.target_url)
 
     def parse(self, response):

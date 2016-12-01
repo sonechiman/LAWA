@@ -6,6 +6,7 @@ import re
 from datetime import datetime as dt
 from ..items import PageItem
 from ..utils import *
+from ..config import *
 
 
 class WebpageSpider(scrapy.Spider):
@@ -22,11 +23,31 @@ class WebpageSpider(scrapy.Spider):
     def parse(self, response):
         page = PageItem()
         page["html"] = response.body
-        page["original_url"] = response.url
-        page["url"] = translate_url(response.url)
-        page["timestamp"] = translate_timestamp(response.url)
+        page = self._parse_url(page, response.url)
         yield page
-        # next_urls = response.css('#wm-ipp-inside .d a').xpath("@href").extract()
-        # if next_urls:
-        #     next_url = "http://web.archive.org" + next_urls[-1]
-        #     yield scrapy.Request(url=next_url, callback=self.parse)
+
+        link_list = response.css('a').xpath("@href").extract()
+        paths = []
+
+        # TODO: Refactoring
+        for i in link_list:
+            # For relative path (ex: index.html)
+            if not re.search(r"(web|http|#|\*|javascript)", i) and i:
+                paths.append(response.urljoin(i))
+            if re.search(DOMAIN, i):
+                paths.append(response.urljoin(i))
+        for p in paths:
+            url_list = response.url.strip("/").split("/")
+            original_url = "/".join(url_list[:5])+"/"
+            if re.match(original_url, p):
+                next_page = PageItem()
+                next_page["company"] = COMPANY
+                temp_url = response.urljoin(p)
+                next_page = self._parse_url(next_page, temp_url)
+                yield next_page
+
+    def _parse_url(self, page, url):
+        page["original_url"] = url
+        page["url"] = translate_url(url)
+        page["timestamp"] = translate_timestamp(url)
+        return page
