@@ -19,6 +19,7 @@ ITEM_PIPELINES = {
     'lawa_scraper.pipelines.MysqlWebpagePipeline': 100,
 }
 
+LOG_FILE = "lawa.log"
 
 DOWNLOAD_DELAY = 3
 

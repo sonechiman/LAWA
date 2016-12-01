@@ -5,7 +5,6 @@ from .db import get_session
 from .items import PageItem
 from . import settings
 
-print(settings.MYSQL_CONNECTION)
 Session = get_session(settings.MYSQL_CONNECTION)
 
 

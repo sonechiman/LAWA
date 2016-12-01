@@ -15,7 +15,9 @@ class UrlSpider(scrapy.Spider):
 
     def __init__(self, url=None, *args, **kwargs):
         super(UrlSpider, self).__init__(*args, **kwargs)
-        self.target_url = "http://salesforce.com/"
+        if not url:
+            url = TARGET_URL
+        self.target_url = url
         self.company = COMPANY
         self.start_urls = self.get_start_urls(self.target_url)
 

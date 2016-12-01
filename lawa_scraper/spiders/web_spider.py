@@ -4,6 +4,7 @@ import os
 import scrapy
 import re
 from datetime import datetime as dt
+import logging
 from ..items import PageItem
 from ..utils import *
 from ..config import *
@@ -14,11 +15,11 @@ class WebpageSpider(scrapy.Spider):
     allowed_domains = ['web.archive.org']
 
     def __init__(self, url=None, *args, **kwargs):
+        logging.info("START CRAWLING Web page spider")
         super(WebpageSpider, self).__init__(*args, **kwargs)
         if not isinstance(url, list):
             url = [url]
         self.start_urls = url
-        self.start_urls = ["http://web.archive.org/web/20000622002011/http://www.salesforce.com/"]
 
     def parse(self, response):
         page = PageItem()
