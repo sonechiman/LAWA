@@ -28,8 +28,7 @@ class MainCrawler:
         self.url = url
         self.flag = "top_urls"
         configure_logging()
-        # self.crawl_url()
-        self.crawl_top_pages()
+        self.crawl_url()
         self.process.start()
 
     # Use repetedly

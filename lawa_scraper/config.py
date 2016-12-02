@@ -1,3 +1,4 @@
 COMPANY = "salesforce"
-TARGET_URL = "http://salesforce.com/"
+# TARGET_URL = "http://www.salesforce.com/crm/editions-pricing.jsp"
+TARGET_URL = "http://www.salesforce.com/crm/editions-pricing.jsp"
 DOMAIN = "salesforce.com"

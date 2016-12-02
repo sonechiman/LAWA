@@ -24,28 +24,30 @@ class WebpageSpider(scrapy.Spider):
     def parse(self, response):
         page = PageItem()
         page["html"] = response.body
+        page["company"] = COMPANY
         page = self._parse_url(page, response.url)
+        print(page)
         yield page
 
         link_list = response.css('a').xpath("@href").extract()
         paths = []
 
-        # TODO: Refactoring
-        for i in link_list:
-            # For relative path (ex: index.html)
-            if not re.search(r"(web|http|#|\*|javascript)", i) and i:
-                paths.append(response.urljoin(i))
-            if re.search(DOMAIN, i):
-                paths.append(response.urljoin(i))
-        for p in paths:
-            url_list = response.url.strip("/").split("/")
-            original_url = "/".join(url_list[:5])+"/"
-            if re.match(original_url, p):
-                next_page = PageItem()
-                next_page["company"] = COMPANY
-                temp_url = response.urljoin(p)
-                next_page = self._parse_url(next_page, temp_url)
-                yield next_page
+        # # TODO: Refactoring
+        # for i in link_list:
+        #     # For relative path (ex: index.html)
+        #     if not re.search(r"(web|http|#|\*|javascript)", i) and i:
+        #         paths.append(response.urljoin(i))
+        #     if re.search(DOMAIN, i):
+        #         paths.append(response.urljoin(i))
+        # for p in paths:
+        #     url_list = response.url.strip("/").split("/")
+        #     original_url = "/".join(url_list[:5])+"/"
+        #     if re.match(original_url, p):
+        #         next_page = PageItem()
+        #         next_page["company"] = COMPANY
+        #         temp_url = response.urljoin(p)
+        #         next_page = self._parse_url(next_page, temp_url)
+        #         yield next_page
 
     def _parse_url(self, page, url):
         page["original_url"] = url

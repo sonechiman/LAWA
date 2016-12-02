@@ -10,7 +10,7 @@ class Webpage(Base):
     id = Column(Integer, primary_key=True)
     html = Column(Text)
     url = Column(String, nullable=False)
-    original_url = Column(String, nullable=False, index=True)
+    original_url = Column(String, nullable=False, index=True, unique=True)
     company = Column(String, nullable=False, index=True)
     path_label = Column(String, index=True)
     timestamp = Column(DateTime, nullable=False, index=True)
