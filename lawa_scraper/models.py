@@ -31,8 +31,10 @@ class Diff(Base):
     date = Column(DateTime, nullable=False, index=True)
     delete_lines = Column(Integer)
     add_lines = Column(Integer)
-    princing = Column(Integer)
+    pricing = Column(Integer)
     free = Column(Integer)
+    add_diff = Column(Text)
+    delete_diff = Column(Text)
 
     def __repr__(self):
         return "<Diff(id={0}, company={1}, timestamp={2})>".format(
